@@ -1,0 +1,4 @@
+#!/bin/bash
+n=50
+if [ "$1" == "-n" ]; then n=$2; fi
+git log -n $n | awk 'skip == 2 { print d " " a " " $0 ; skip = 0 } skip == 1 { skip = 2} /^Author:/ { a = $2 } /^Date:/ { d = $3 $4 ; skip = 1 }'

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+  echo "Usage: pullrepos /path/to/dir" >&2
+  exit 1
+fi
+
+for d in $1/*; do
+  cd $d
+  if [ -e .git ]; then
+    git pull
+  fi
+  cd -
+done
+
