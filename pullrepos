@@ -8,8 +8,9 @@ fi
 for d in $1/*; do
   cd $d
   if [ -e .git ]; then
-    git pull
+    echo $d:
+    git pull origin master
   fi
-  cd -
+  cd - >&2 > /dev/null
 done
 
