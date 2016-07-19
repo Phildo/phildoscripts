@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if fup '[Mm]akefile|MAKEFILE' > /dev/null; then
+  fup '[Mm]akefile|MAKEFILE' | awk 'NR==1 { print $0; exit }';
+  exit 0
+else
+  echo "No make file was found in this or any parent directories" 1>&2
+  exit 1
+fi
+

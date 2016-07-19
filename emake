@@ -1,0 +1,9 @@
+#!/bin/bash
+
+makefile=`fmake`
+if [ $makefile ]; then
+  $EDITOR $makefile $@
+else
+  $EDITOR makefile
+fi
+

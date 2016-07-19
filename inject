@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if [ $# -ne 4 ]; then
+  echo "usage: inject start_rflag end_rflag syringe_file patient_file" >&2
+  exit 0
+fi
+
+START_RFLAG=$1
+END_RFLAG=$2
+SYRINGE_FILE=$3
+PATIENT_FILE=$4
+
+TMP_FILE=${PATIENT_FILE}.tmp
+touch $TMP_FILE
+
+cat $PATIENT_FILE | awk 'BEGIN { del_found=0 } del_found==0 { print } /'$START_RFLAG'/ { del_found=1 }' >> $TMP_FILE
+cat $SYRINGE_FILE                                                                                       >> $TMP_FILE
+cat $PATIENT_FILE | awk 'BEGIN { del_found=0 } /'$END_RFLAG'/ { del_found=1 } del_found==1 { print }'   >> $TMP_FILE
+
+mv $TMP_FILE $PATIENT_FILE
+
+exit 0
+

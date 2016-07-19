@@ -1,0 +1,13 @@
+#!/bin/bash
+
+songsdir=/Applications/stepmania/Songs
+favsdir=$songsdir/000PhilPix
+
+if [ $# -eq 0 ]; then echo "Usage: ddrfav <search term>"; exit 1; fi;
+if [ $# -gt 1 ]; then echo "Only one search term allowed. Searching '$1'..."; fi;
+if [ "`find $songsdir -type d -iname *"$1"* | awk 'END { print NR }'`" -eq "0" ]; then echo "No results found."; exit 1; fi;
+
+find $songsdir -type d -iname *"$1"* | awk '{ print NR ". " $0 } END { print "Which song (1-" NR ")? (0 for quit)" }' | sed "s@$songsdir/@@g"
+read selection
+if [ $selection -eq 0 ]; then exit 0; fi;
+cp -r "`find $songsdir -type d -iname *"$1"* | awk 'NR == '$selection' { print $0 }'`" $favsdir
