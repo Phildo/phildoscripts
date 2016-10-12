@@ -10,6 +10,7 @@ for d in $1/*; do
   if [ -e .git ]; then
     echo $d:
     git pull origin master
+    echo
   fi
   cd - >&2 > /dev/null
 done
