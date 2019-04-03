@@ -45,7 +45,7 @@ fi
 if [ $# -eq 0 ]; then
   error "usage: $USAGE"
 fi
-    
+
 #unblock
 if [ "$1" == "-u" ]; then
   if [ $# -gt 1 ]; then
